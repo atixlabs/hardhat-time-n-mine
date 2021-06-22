@@ -1,60 +1,143 @@
-# Hardhat TypeScript plugin boilerplate
+# hardhat-time-n-mine
 
-This is a sample Hardhat plugin written in TypeScript. Creating a Hardhat plugin
-can be as easy as extracting a part of your config into a different file and
-publishing it to npm.
+This plugin will help you manipulate time and mine blocks while testing and while using the `hardhat node` to develop any type of DApp.
 
-This sample project contains an example on how to do that, but also comes with
-many more features:
+[Hardhat](https://hardhat.org) plugin example. 
 
-- A mocha test suite ready to use
-- TravisCI already setup
-- A package.json with scripts and publishing info
-- Examples on how to do different things
+## What
+
+This plugins adds some tasks to manipulate the timestamp in the future blocks if you are using `hardhat node`, it will help you develop DApps that are time dependent without waiting time to actually elapse.
+
+As well as adding said tasks it also extends the HardhatRuntimeEnvironment with the same tasks in a function format so to let you use it in a JS/TS environment(being it automated tests, or your own scripts and tasks). 
 
 ## Installation
 
-To start working on your project, just run
+To install it you just need
 
 ```bash
-npm install
+npm install hardhat-time-n-mine hardhat
 ```
 
-## Plugin development
+Import the plugin in your `hardhat.config.js`:
 
-Make sure to read our [Plugin Development Guide](https://hardhat.org/guides/create-plugin.html)
-to learn how to build a plugin, and our
-[best practices to create high-quality plugins](https://hardhat.org/advanced/building-plugins.html).
+```js
+require("hardhat-time-n-mine");
+```
 
-## Testing
+Or if you are using TypeScript, in your `hardhat.config.ts`:
 
-Running `npm run test` will run every test located in the `test/` folder. They
-use [mocha](https://mochajs.org) and [chai](https://www.chaijs.com/),
-but you can customize them.
+```ts
+import "hardhat-time-n-mine";
+```
 
-We recommend creating unit tests for your own modules, and integration tests for
-the interaction of the plugin with Hardhat and its dependencies.
 
-## Linting and autoformat
+## Required plugins
 
-All of Hardhat projects use [prettier](https://prettier.io/) and
-[tslint](https://palantir.github.io/tslint/).
+This plugin does not require any other plugin, it just needs you to install Hardhat ^2.0.0(has been tested with 2.4.0).
 
-You can check if your code style is correct by running `npm run lint`, and fix
-it with `npm run lint:fix`.
+## Tasks
 
-## Building the project
 
-Just run `npm run build` ️👷
+This plugin adds the tasks explained in the following subsections.
+Note that you MUST use the `--network localhost` if you are running the node locally(or any other network with a defined url that points to your node).
 
-## README file
+### mine
+```
+Usage: hardhat [GLOBAL OPTIONS] mine [--amount <INT>]
 
-This README describes this boilerplate project, but won't be very useful to your
-plugin users.
+OPTIONS:
 
-Take a look at `README-TEMPLATE.md` for an example of what a Hardhat plugin's
-README should look like.
+  --amount	amount of blocks to be mined (default: 1)
 
-## Migrating from Buidler?
+mine: mines a single block
 
-Take a look at [the migration guide](MIGRATION.md)!
+For global options help run: hardhat help
+```
+
+### increaseTime
+```
+Usage: hardhat [GLOBAL OPTIONS] increaseTime delta
+
+POSITIONAL ARGUMENTS:
+
+  delta	difference to add to the current time tracker 
+
+increaseTime: adds the given delta. NOTICE: this counts 'real' ellapsing time and is not idempotent, we recommend you user setTimeIncrease
+
+For global options help run: hardhat help
+```
+
+### setTimeIncrease
+```
+Usage: hardhat [GLOBAL OPTIONS] setTimeIncrease delta
+
+POSITIONAL ARGUMENTS:
+
+  delta	difference between the current timestamp and the next 
+
+setTimeIncrease: makes the next block timestamp increase the given delta with respect to the current block timestamp
+
+For global options help run: hardhat help
+```
+
+### setTimeNextBlock
+```
+Usage: hardhat [GLOBAL OPTIONS] setTimeNextBlock time
+
+POSITIONAL ARGUMENTS:
+
+  time	timestamp of the next block 
+
+setTimeNextBlock: set the timestamp of the next block(does not actually mine)
+
+For global options help run: hardhat help
+```
+
+### setTime
+
+```
+Usage: hardhat [GLOBAL OPTIONS] setTime time
+
+POSITIONAL ARGUMENTS:
+
+  time	timestamp of the next block 
+
+setTime: mines a single block with a given time, effectively setting the time of the blockchain
+
+For global options help run: hardhat help
+```
+
+
+## Environment extensions
+
+<_A description of each extension to the Hardhat Runtime Environment_>
+
+This plugin extends the Hardhat Runtime Environment by adding an `timeAndMine` field
+which is an object with five functions, namely:
+
+- mine
+
+- setTime
+
+- setTimeNextBlock
+
+- increaseTime
+
+- setTimeIncrease
+
+Each of the previously mentioned functions behave like the previously mentioned tasks(but having all of its parameters required) and can be used within your tests/scripts.
+
+
+
+## Configuration
+
+This plugin does not need any type of extra configuration.
+
+## Usage
+
+Once you have the plugin installed and imported in your hardhat.config.js/hardhat.config.ts, you don't have to do anything else, just use the functions in the `timeAndMine` object or use the defined tasks.
+
+
+## Development
+
+To test it you have

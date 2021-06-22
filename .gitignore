@@ -61,3 +61,10 @@ typings/
 
 # environment variables
 .env
+
+# hardhat project(does not need to be pushed, this is not a project; but we need the files if we want to test it)
+
+hardhat.config.js
+contracts/
+cache/
+artifacts/
