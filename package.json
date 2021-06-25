@@ -1,5 +1,5 @@
 {
-  "name": "hardhat-time-n-mine",
+  "name": "@atixlabs/hardhat-time-n-mine",
   "version": "0.0.1",
   "description": "Hardhat plugin to manipulate time and mine blocks",
   "repository": "github:atixlabs/hardhat-time-n-mine",
@@ -23,7 +23,8 @@
     "test:hreMethods": "mocha --exit --recursive 'test/hreMethods/**/*.test.ts'",
     "test:tasks": "mocha --timeout 10000 --exit --recursive 'test/tasks/**/*.test.ts'",
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "release": "standard-version"
   },
   "files": [
     "dist/src/",
