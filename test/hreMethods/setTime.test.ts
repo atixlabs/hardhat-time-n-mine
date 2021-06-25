@@ -1,7 +1,7 @@
 // tslint:disable-next-line no-implicit-dependencies
 import { expect } from "chai";
 
-import { getLastBlock } from "../src/helpers";
+import { getLastBlock } from "../../src/helpers";
 
 import { useEnvironment } from "./helpers";
 

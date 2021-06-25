@@ -1,7 +1,7 @@
 // tslint:disable-next-line no-implicit-dependencies
 import { expect } from "chai";
 
-import { getLastBlock } from "../src/helpers";
+import { getLastBlock } from "../../src/helpers";
 
 import { useEnvironment } from "./helpers";
 
@@ -10,7 +10,7 @@ describe("setTimeNextBlock tests", function () {
     useEnvironment("hardhat-project");
 
     function checkSetTimeNextBlock(date: number) {
-      it("DOES NOT mines a block and sets the exact time for the next block", async function () {
+      it("DOES NOT mine a block and sets the exact time for the next block", async function () {
         const startBlock = await getLastBlock(this.hre);
         await this.hre.timeAndMine.setTimeNextBlock(date);
         const intermmediateBlock = await getLastBlock(this.hre);

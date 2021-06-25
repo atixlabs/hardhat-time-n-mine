@@ -1,7 +1,7 @@
 // tslint:disable-next-line no-implicit-dependencies
 import { expect } from "chai";
 
-import { getLastBlock } from "../src/helpers";
+import { getLastBlock } from "../../src/helpers";
 
 import { useEnvironment } from "./helpers";
 
@@ -10,7 +10,7 @@ describe("Mine tests", function () {
     useEnvironment("hardhat-project");
 
     function checkMine(amount: number) {
-      it(`mines the given amount of blocks`, async function () {
+      it(`mines ${amount} empty blocks when called with ${amount} as a parameter`, async function () {
         const startBlock = await getLastBlock(this.hre);
         await this.hre.timeAndMine.mine(amount);
         const endBlock = await getLastBlock(this.hre);

@@ -19,7 +19,9 @@
   "scripts": {
     "lint:fix": "prettier --write 'src/**/*.{js,ts}' 'test/**/*.{js,ts}' && tslint --fix --config tslint.json --project tsconfig.json",
     "lint": "tslint --config tslint.json --project tsconfig.json",
-    "test": "mocha --exit --recursive 'test/**/*.test.ts'",
+    "test": "npm run test:tasks && npm run test:hreMethods",
+    "test:hreMethods": "mocha --exit --recursive 'test/hreMethods/**/*.test.ts'",
+    "test:tasks": "mocha --timeout 10000 --exit --recursive 'test/tasks/**/*.test.ts'",
     "build": "tsc",
     "watch": "tsc -w"
   },
