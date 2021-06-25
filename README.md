@@ -15,7 +15,7 @@ As well as adding said tasks it also extends the HardhatRuntimeEnvironment with 
 To install it you just need
 
 ```bash
-npm install hardhat-time-n-mine hardhat
+npm install @atixlabs/hardhat-time-n-mine hardhat
 ```
 
 Import the plugin in your `hardhat.config.js`:
@@ -109,8 +109,6 @@ For global options help run: hardhat help
 
 
 ## Environment extensions
-
-<_A description of each extension to the Hardhat Runtime Environment_>
 
 This plugin extends the Hardhat Runtime Environment by adding an `timeAndMine` field
 which is an object with five functions, namely:
