@@ -138,6 +138,31 @@ This plugin does not need any type of extra configuration.
 Once you have the plugin installed and imported in your hardhat.config.js/hardhat.config.ts, you don't have to do anything else, just use the functions in the `timeAndMine` object or use the defined tasks.
 
 
-## Development
+## Contributing
 
-To test it you have
+Once you installed the repo, you will be able to test the tasks using 
+
+`npm run test:tasks`
+
+(you will have to have a node running for that)
+
+To test the hre methods, you will have to run:
+
+`npm run test:hreMethods`
+
+You can test all of it using
+
+`npm test`
+
+You can lint it using:
+
+`npm run lint`
+
+or
+
+`npm run lint:fix`
+
+### Future work
+
+- Add `ms` to parse time deltas
+- Add some date parsing 
