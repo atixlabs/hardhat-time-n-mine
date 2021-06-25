@@ -1,6 +1,6 @@
 {
   "name": "@atixlabs/hardhat-time-n-mine",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Hardhat plugin to manipulate time and mine blocks",
   "repository": "github:atixlabs/hardhat-time-n-mine",
   "author": "Atixlabs",
