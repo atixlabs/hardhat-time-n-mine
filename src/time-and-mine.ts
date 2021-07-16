@@ -1,6 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 import { getLastBlock } from "./helpers";
+import { parseDelta } from "./param-parsing";
 
 const mineOneBlock = async (hre: HardhatRuntimeEnvironment) =>
   hre.network.provider.send("evm_mine", []);
@@ -12,7 +13,7 @@ const mineChunk = async (hre: HardhatRuntimeEnvironment, amount: number) =>
 
 const mine = (hre: HardhatRuntimeEnvironment) => async (amount: number) => {
   if (amount < 0)
-    throw new Error("mine cannot be called wiht a negative value");
+    throw new Error("mine cannot be called with a negative value");
   const MAX_PARALLEL_CALLS = 1000;
   // Do it on parallel but do not overflow connections
   for (let i = 0; i < Math.floor(amount / MAX_PARALLEL_CALLS); i++) {
@@ -22,16 +23,16 @@ const mine = (hre: HardhatRuntimeEnvironment) => async (amount: number) => {
 };
 
 const increaseTime =
-  (hre: HardhatRuntimeEnvironment) => async (delta: number) => {
-    if (delta < 0)
-      throw new Error("increaseTime cannot be called wiht a negative value");
-    return hre.network.provider.send("evm_increaseTime", [delta]);
+  (hre: HardhatRuntimeEnvironment) => async (delta: string) => {
+    const deltaInSeconds = parseDelta(delta);
+    return hre.network.provider.send("evm_increaseTime", [deltaInSeconds]);
   };
 
 const setTimeIncrease =
-  (hre: HardhatRuntimeEnvironment) => async (delta: number) => {
+  (hre: HardhatRuntimeEnvironment) => async (delta: string) => {
+    const deltaInSeconds = parseDelta(delta);
     const latestBlock = await getLastBlock(hre);
-    const nextTimestamp = parseInt(latestBlock.timestamp, 16) + delta;
+    const nextTimestamp = parseInt(latestBlock.timestamp, 16) + deltaInSeconds;
     await setTimeNextBlock(hre)(nextTimestamp);
   };
 
@@ -46,8 +47,8 @@ const setTimeNextBlock = (hre: HardhatRuntimeEnvironment) => (time: number) =>
 export default (
   hre: HardhatRuntimeEnvironment
 ): {
-  increaseTime: (delta: number) => Promise<void>;
-  setTimeIncrease: (delta: number) => Promise<void>;
+  increaseTime: (delta: string) => Promise<void>;
+  setTimeIncrease: (delta: string) => Promise<void>;
   mine: (amount: number) => Promise<void>;
   setTime: (time: number) => Promise<void>;
   setTimeNextBlock: (time: number) => Promise<void>;

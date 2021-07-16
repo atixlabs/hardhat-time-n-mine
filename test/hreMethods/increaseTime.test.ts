@@ -17,15 +17,29 @@ describe("increaseTime tests", function () {
       // assume that a second can pass(we assume that only a second pass since these tests are pretty fast)
       const endBlock = await getLastBlock(hre);
 
-      expect(startingTimestamp + delta).to.be.greaterThanOrEqual(
-        parseInt(endBlock.timestamp, 16)
+      expect(parseInt(endBlock.timestamp, 16)).to.be.greaterThanOrEqual(
+        startingTimestamp + delta
       );
-      return expect(startingTimestamp + delta).to.be.lessThanOrEqual(
-        parseInt(endBlock.timestamp, 16) + 1
+      return expect(parseInt(endBlock.timestamp, 16)).to.be.lessThanOrEqual(
+        startingTimestamp + delta + 1
       );
     }
+
+    function checkIncreaseTime(delta: string, expectedDeltaInSeconds: number) {
+      it(`increases the time in ${delta}`, async function () {
+        const startBlock = await getLastBlock(this.hre);
+        await this.hre.timeAndMine.increaseTime(delta);
+        await this.hre.timeAndMine.mine(1);
+        return expectTimeIncrease(
+          this.hre,
+          parseInt(startBlock.timestamp, 16),
+          expectedDeltaInSeconds
+        );
+      });
+    }
+
     it("if increaseTime is called twice, both calls count", async function () {
-      const delta = 30;
+      const delta = "30";
       const startBlock = await getLastBlock(this.hre);
       await this.hre.timeAndMine.increaseTime(delta);
       await this.hre.timeAndMine.increaseTime(delta);
@@ -33,24 +47,21 @@ describe("increaseTime tests", function () {
       return expectTimeIncrease(
         this.hre,
         parseInt(startBlock.timestamp, 16),
-        delta * 2
+        parseInt(delta, 10) * 2
       );
     });
 
-    it("if increaseTime is called once with a delta that amount is incremented", async function () {
-      const delta = 30;
-      const startBlock = await getLastBlock(this.hre);
-      await this.hre.timeAndMine.increaseTime(delta);
-      await this.hre.timeAndMine.mine(1);
-      return expectTimeIncrease(
-        this.hre,
-        parseInt(startBlock.timestamp, 16),
-        delta
-      );
-    });
+    checkIncreaseTime("1", 1);
+    checkIncreaseTime("10", 10);
+    checkIncreaseTime("1000", 1000);
+    checkIncreaseTime("10000", 10000);
+    checkIncreaseTime("1s", 1);
+    checkIncreaseTime("1day", 60 * 60 * 24);
+    checkIncreaseTime("1d", 60 * 60 * 24);
+    checkIncreaseTime("1 week", 60 * 60 * 24 * 7);
 
     it("if increaseTime is called and real time ellapses both amounts count", async function () {
-      const delta = 30;
+      const delta = "30";
       const realTimeDelta = 2;
       const startBlock = await getLastBlock(this.hre);
       await this.hre.timeAndMine.increaseTime(delta);
@@ -62,12 +73,16 @@ describe("increaseTime tests", function () {
       return expectTimeIncrease(
         this.hre,
         parseInt(startBlock.timestamp, 16),
-        delta + realTimeDelta
+        parseInt(delta, 10) + realTimeDelta
       );
     });
 
     it("fails if called with a negative value", function () {
-      return expect(this.hre.timeAndMine.increaseTime(-10000)).to.be.rejected;
+      return expect(this.hre.timeAndMine.increaseTime("-10000")).to.be.rejected;
+    });
+    it("fails if called with a non integer value", function () {
+      return expect(this.hre.timeAndMine.increaseTime("10000.3")).to.be
+        .rejected;
     });
   });
 });

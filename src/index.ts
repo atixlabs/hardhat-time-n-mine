@@ -31,9 +31,9 @@ task("setTimeIncrease")
   )
   .addPositionalParam(
     "delta",
-    "difference between the current timestamp and the next",
+    "difference between the current timestamp and the next. Can be a number representing the seconds or a string representing the delta",
     undefined,
-    types.int,
+    types.string,
     false
   )
   .setAction((args, hre) => hre.timeAndMine.setTimeIncrease(args.delta));
@@ -44,9 +44,9 @@ task("increaseTime")
   )
   .addPositionalParam(
     "delta",
-    "difference to add to the current time tracker",
+    "difference to add to the current time tracker. Can be a number representing the seconds or a string representing the delta",
     undefined,
-    types.int,
+    types.string,
     false
   )
   .setAction((args, hre) => hre.timeAndMine.increaseTime(args.delta));

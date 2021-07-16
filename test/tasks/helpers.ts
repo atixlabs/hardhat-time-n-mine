@@ -23,11 +23,11 @@ const executeTask = (taskName: string, parameter: string): Promise<void> =>
     )
   );
 
-const increaseTime = (delta: number) =>
-  executeTask("increaseTime", delta.toString());
+const increaseTime = (delta: string) =>
+  executeTask("increaseTime", `"${delta}"`);
 
-const setTimeIncrease = (delta: number) =>
-  executeTask("setTimeIncrease", delta.toString());
+const setTimeIncrease = (delta: string) =>
+  executeTask("setTimeIncrease", `"${delta}"`);
 
 const mine = (amount: number) => executeTask("mine", `--amount ${amount}`);
 
@@ -35,6 +35,7 @@ const setTime = (time: number) => executeTask("setTime", time.toString());
 
 const setTimeNextBlock = (time: number) =>
   executeTask("setTimeNextBlock", time.toString());
+
 const useEnvironment = (fixtureProjectName: string) => {
   beforeEach("Loading hardhat environment", function () {
     process.chdir(path.join(__dirname, "fixture-projects", fixtureProjectName));

@@ -60,12 +60,22 @@ Usage: hardhat [GLOBAL OPTIONS] increaseTime delta
 
 POSITIONAL ARGUMENTS:
 
-  delta	difference to add to the current time tracker 
+  delta	difference to add to the current time tracker. Can be a number representing the seconds or a string representing the delta
 
 increaseTime: adds the given delta. NOTICE: this counts 'real' ellapsing time and is not idempotent, we recommend you user setTimeIncrease
 
 For global options help run: hardhat help
 ```
+
+We are using [ms](https://www.npmjs.com/package/ms) to parse the delta if it is not a number, so you can use any of those formats.
+
+Examples:
+
+- `hardhat increaseTime 10`: Increases ten seconds
+- `hardhat increaseTime 1d`: Increases a day
+- `hardhat increaseTime "1 week"`: Increases a week
+- `hardhat increaseTime 1y`: Increases a year
+
 
 ### setTimeIncrease
 ```
@@ -73,12 +83,21 @@ Usage: hardhat [GLOBAL OPTIONS] setTimeIncrease delta
 
 POSITIONAL ARGUMENTS:
 
-  delta	difference between the current timestamp and the next 
+  delta	difference between the current timestamp and the next. Can be a number representing the seconds or a string representing the delta
 
 setTimeIncrease: makes the next block timestamp increase the given delta with respect to the current block timestamp
 
 For global options help run: hardhat help
 ```
+
+We are using [ms](https://www.npmjs.com/package/ms) to parse the delta if it is not a number, so you can use any of those formats.
+
+Examples:
+
+- `hardhat setTimeIncrease 10`: Increases ten seconds
+- `hardhat setTimeIncrease 1d`: Increases a day
+- `hardhat setTimeIncrease "1 week"`: Increases a week
+- `hardhat setTimeIncrease 1y`: Increases a year
 
 ### setTimeNextBlock
 ```
