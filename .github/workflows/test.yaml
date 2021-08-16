@@ -23,4 +23,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run lint
+      - run: mkdir ~/.buidler && touch ~/.buidler/config # for some reason asks for telemetry ack when running on Github Actions
       - run: npm test
