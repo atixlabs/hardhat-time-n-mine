@@ -21,7 +21,9 @@
     "lint": "tslint --config tslint.json --project tsconfig.json",
     "test": "run-s test:*",
     "test:hreMethods": "mocha --exit --recursive 'test/hreMethods/**/*.test.ts'",
-    "test:tasks": "mocha --timeout 10000 --exit --recursive 'test/tasks/**/*.test.ts'",
+    "test:tasks": "run-p --race tasks:testNode tasks:executeTests",
+    "tasks:executeTests": "wait-on tcp:8545 && mocha --timeout 10000 --exit --recursive 'test/tasks/**/*.test.ts'",
+    "tasks:testNode": "hardhat --config test/tasks/fixture-projects/hardhat-project/hardhat.config.ts node",
     "build": "tsc",
     "watch": "tsc -w",
     "release": "standard-version"
@@ -49,7 +51,8 @@
     "tslint": "6.1.3",
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-prettier": "2.3.0",
-    "typescript": "4.3.4"
+    "typescript": "4.3.4",
+    "wait-on": "6.0.0"
   },
   "peerDependencies": {
     "hardhat": "^2.0.0"
