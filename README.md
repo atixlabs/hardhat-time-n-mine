@@ -21,13 +21,13 @@ npm install @atixlabs/hardhat-time-n-mine hardhat
 Import the plugin in your `hardhat.config.js`:
 
 ```js
-require("hardhat-time-n-mine");
+require("@atixlabs/hardhat-time-n-mine");
 ```
 
 Or if you are using TypeScript, in your `hardhat.config.ts`:
 
 ```ts
-import "hardhat-time-n-mine";
+import "@atixlabs/hardhat-time-n-mine";
 ```
 
 
