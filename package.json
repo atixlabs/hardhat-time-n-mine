@@ -24,6 +24,7 @@
     "test:tasks": "mocha --timeout 10000 --exit --recursive 'test/tasks/**/*.test.ts'",
     "build": "tsc",
     "watch": "tsc -w",
+    "prepublishOnly": "npm run build",
     "release": "standard-version"
   },
   "files": [
