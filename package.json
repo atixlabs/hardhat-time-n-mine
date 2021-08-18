@@ -26,6 +26,7 @@
     "tasks:testNode": "hardhat --config test/tasks/fixture-projects/hardhat-project/hardhat.config.ts node",
     "build": "tsc",
     "watch": "tsc -w",
+    "prepublishOnly": "npm run build",
     "release": "standard-version"
   },
   "files": [
