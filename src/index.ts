@@ -20,7 +20,7 @@ task("setTime")
     "time",
     "timestamp of the next block",
     undefined,
-    types.int,
+    types.string,
     false
   )
   .setAction((args, hre) => hre.timeAndMine.setTime(args.time));
@@ -57,7 +57,7 @@ task("setTimeNextBlock")
     "time",
     "timestamp of the next block",
     undefined,
-    types.int,
+    types.string,
     false
   )
   .setAction((args, hre) => hre.timeAndMine.setTimeNextBlock(args.time));

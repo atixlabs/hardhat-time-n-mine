@@ -112,6 +112,19 @@ setTimeNextBlock: set the timestamp of the next block(does not actually mine)
 For global options help run: hardhat help
 ```
 
+This task can receive the time to be set as a number(will be interpreted as a unix timestamp, in seconds), and a string in various formats. Its hreMethod counterpart can also receive a Date object.
+
+In any case, it will fail if the date is not a second-exact date (i.e. has not zero milliseconds).
+
+String formats are thos supported by [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) but we recommend sticking to ISO string or YYYY-MM-DD(as the other depend on the timezone you are in and/or to implementation-specific date formats).
+
+
+Examples: 
+
+- `hardhat setTimeNextBlock 2549333405`: Will set the time of the next block to Fri Oct 14 2050 04:10:05 GMT+0000
+- `hardhat setTimeNextBlock 2050-10-14`: Will set the time of the next block to Fri Oct 14 2050 00:00:00 GMT+0000
+- `hardhat setTimeNextBlock 2050-10-14T01:41:43+00:00`: Will set the time of the next block to Fri Oct 14 2050 01:41:43 GMT+0000
+
 ### setTime
 
 ```
@@ -125,6 +138,19 @@ setTime: mines a single block with a given time, effectively setting the time of
 
 For global options help run: hardhat help
 ```
+
+This task can receive the time to be set as a number(will be interpreted as a unix timestamp, in seconds), and a string in various formats. Its hreMethod counterpart can also receive a Date object.
+
+In any case, it will fail if the date is not a second-exact date (i.e. has not zero milliseconds).
+
+String formats are thos supported by [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) but we recommend sticking to ISO string or YYYY-MM-DD(as the other depend on the timezone you are in and/or to implementation-specific date formats).
+
+
+Examples:
+
+- `hardhat setTime 2549333405`: Will mint a block with the time set to Fri Oct 14 2050 04:10:05 GMT+0000
+- `hardhat setTime 2050-10-14`: Will mint a block with the time set to Fri Oct 14 2050 00:00:00 GMT+0000
+- `hardhat setTime 2050-10-14T01:41:43+00:00`: Will mint a block with the time set to Fri Oct 14 2050 01:41:43 GMT+0000
 
 
 ## Environment extensions
@@ -178,8 +204,3 @@ You can lint it using:
 or
 
 `npm run lint:fix`
-
-### Future work
-
-- Add `ms` to parse time deltas
-- Add some date parsing 
