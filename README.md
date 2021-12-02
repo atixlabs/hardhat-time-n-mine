@@ -116,7 +116,7 @@ This task can receive the time to be set as a number(will be interpreted as a un
 
 In any case, it will fail if the date is not a second-exact date (i.e. has not zero milliseconds).
 
-String formats are thos supported by [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) but we recommend sticking to ISO string or YYYY-MM-DD(as the other depend on the timezone you are in and/or to implementation-specific date formats).
+String formats are those supported by [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) but we recommend sticking to ISO string or YYYY-MM-DD(as the other depend on the timezone you are in and/or to implementation-specific date formats).
 
 
 Examples: 
@@ -143,7 +143,7 @@ This task can receive the time to be set as a number(will be interpreted as a un
 
 In any case, it will fail if the date is not a second-exact date (i.e. has not zero milliseconds).
 
-String formats are thos supported by [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) but we recommend sticking to ISO string or YYYY-MM-DD(as the other depend on the timezone you are in and/or to implementation-specific date formats).
+String formats are those supported by [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) but we recommend sticking to ISO string or YYYY-MM-DD(as the other depend on the timezone you are in and/or to implementation-specific date formats).
 
 
 Examples:
