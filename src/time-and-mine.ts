@@ -1,7 +1,8 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 import { getLastBlock } from "./helpers";
-import { parseDelta } from "./param-parsing";
+import { parseDate, parseDelta } from "./param-parsing";
+import { Dateish } from "./type-extensions";
 
 const mineOneBlock = async (hre: HardhatRuntimeEnvironment) =>
   hre.network.provider.send("evm_mine", []);
@@ -36,12 +37,12 @@ const setTimeIncrease =
     await setTimeNextBlock(hre)(nextTimestamp);
   };
 
-const setTime = (hre: HardhatRuntimeEnvironment) => (time: number) =>
-  hre.network.provider.send("evm_mine", [time]) as Promise<void>;
+const setTime = (hre: HardhatRuntimeEnvironment) => (date: Dateish) =>
+  hre.network.provider.send("evm_mine", [parseDate(date)]) as Promise<void>;
 
-const setTimeNextBlock = (hre: HardhatRuntimeEnvironment) => (time: number) =>
+const setTimeNextBlock = (hre: HardhatRuntimeEnvironment) => (date: Dateish) =>
   hre.network.provider.send("evm_setNextBlockTimestamp", [
-    time,
+    parseDate(date),
   ]) as Promise<void>;
 
 export default (
@@ -50,8 +51,8 @@ export default (
   increaseTime: (delta: string) => Promise<void>;
   setTimeIncrease: (delta: string) => Promise<void>;
   mine: (amount: number) => Promise<void>;
-  setTime: (time: number) => Promise<void>;
-  setTimeNextBlock: (time: number) => Promise<void>;
+  setTime: (time: Dateish) => Promise<void>;
+  setTimeNextBlock: (time: Dateish) => Promise<void>;
 } => ({
   increaseTime: increaseTime(hre),
   setTimeIncrease: setTimeIncrease(hre),

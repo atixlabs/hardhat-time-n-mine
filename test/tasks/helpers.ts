@@ -3,6 +3,8 @@ import { resetHardhatContext } from "hardhat/plugins-testing";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import path from "path";
 
+import { Dateish } from "../type-extensions";
+
 declare module "mocha" {
   interface Context {
     hre: HardhatRuntimeEnvironment;
@@ -31,10 +33,11 @@ const setTimeIncrease = (delta: string) =>
 
 const mine = (amount: number) => executeTask("mine", `--amount ${amount}`);
 
-const setTime = (time: number) => executeTask("setTime", time.toString());
+const setTime = (time: Dateish) =>
+  executeTask("setTime", '"' + time.toString() + '"');
 
-const setTimeNextBlock = (time: number) =>
-  executeTask("setTimeNextBlock", time.toString());
+const setTimeNextBlock = (time: Dateish) =>
+  executeTask("setTimeNextBlock", '"' + time.toString() + '"');
 
 const useEnvironment = (fixtureProjectName: string) => {
   beforeEach("Loading hardhat environment", function () {
